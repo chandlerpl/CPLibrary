@@ -3,17 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Authors>Chandler Pope-Lewis</Authors>
-    <Company>Pope Games, Inc</Company>
+    <Company>Pope Games</Company>
+    <Copyright />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <Optimize>false</Optimize>
     <OutputPath>C:\Users\cpope\Desktop\CP Repos\</OutputPath>
-    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CP.CommonCUDA\CP.CommonCUDA.vcxproj" />
-  </ItemGroup>
 
 </Project>

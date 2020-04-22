@@ -1,0 +1,27 @@
+﻿extensions: designer.cs generated.cs
+extensions: .cs .cpp .h
+/* 
+ * Copyright (C) Pope Games, Inc - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Author: Chandler Pope-Lewis <c.popelewis@gmail.com>
+ */
+extensions: .aspx .ascx
+<%-- 
+Copyright (C) Pope Games, Inc - All Rights Reserved
+Unauthorized copying of this file, via any medium is strictly prohibited
+Proprietary and confidential
+Author: Chandler Pope-Lewis <c.popelewis@gmail.com>
+--%>
+extensions: .vb
+'Copyright (C) Pope Games, Inc - All Rights Reserved
+'Unauthorized copying of this file, via any medium is strictly prohibited
+'Proprietary and confidential
+'Author: Chandler Pope-Lewis <c.popelewis@gmail.com>
+extensions:  .xml .config .xsd
+<!--
+Copyright (C) Pope Games, Inc - All Rights Reserved
+Unauthorized copying of this file, via any medium is strictly prohibited
+Proprietary and confidential
+Author: Chandler Pope-Lewis <c.popelewis@gmail.com>
+-->
