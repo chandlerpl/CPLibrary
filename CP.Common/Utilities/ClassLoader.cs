@@ -14,14 +14,24 @@ namespace CP.Common.Utilities
 {
     public static class ClassLoader
     {
-        public static IEnumerable<T> Load<T>()
+        public static List<T> Load<T>()
         {
             List<T> objects = new List<T>();
 
-            foreach (Type type in AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(myType => myType.IsClass && !myType.IsAbstract && myType.IsSubclassOf(typeof(T))))
+            if(typeof(T).IsInterface)
             {
-                objects.Add((T)Activator.CreateInstance(type));
+                foreach (Type type in AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()).Where(x => typeof(T).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract))
+                {
+                    objects.Add((T)Activator.CreateInstance(type));
+                }
+            } else
+            {
+                foreach (Type type in AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(myType => myType.IsClass && !myType.IsAbstract && myType.IsSubclassOf(typeof(T))))
+                {
+                    objects.Add((T)Activator.CreateInstance(type));
+                }
             }
+
 
             return objects;
         }
