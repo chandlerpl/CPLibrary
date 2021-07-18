@@ -40,6 +40,7 @@ namespace CP.Common.Random
 	*/
 
     using System;
+    using System.Diagnostics;
 
     public class RandomHash
     {
@@ -50,6 +51,11 @@ namespace CP.Common.Random
         const uint PRIME32_3 = 3266489917U;
         const uint PRIME32_4 = 668265263U;
         const uint PRIME32_5 = 374761393U;
+
+        public RandomHash()
+        {
+            this.seed = (uint)Stopwatch.GetTimestamp();
+        }
 
         public RandomHash(int seed)
         {
@@ -233,6 +239,20 @@ namespace CP.Common.Random
             h32 *= PRIME32_3;
             h32 ^= h32 >> 16;
             return h32;
+        }
+
+        public int Next(int min = 0, int max = 1, params int[] buf)
+        {
+            double val = (GetHash(buf) + 0.0) / uint.MaxValue;
+
+            return (int)((max - min) / (1 - 0) * (val - 1) + max);
+        }
+
+        public double NextDouble(double min = 0, double max = 1, params int[] buf)
+        {
+            double val = (GetHash(buf) + 0.0) / uint.MaxValue;
+
+            return (max - min) / (1 - 0) * (val - 1) + max;
         }
 
         private static uint CalcSubHash(uint value, byte[] buf, int index)

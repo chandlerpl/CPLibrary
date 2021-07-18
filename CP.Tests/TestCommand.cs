@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CP.Tests
 {
-    class TestCommand : CPCommand
+    class TestCommand : Command
     {
         public override bool Init()
         {

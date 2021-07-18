@@ -11,7 +11,7 @@ using System.Text;
 
 namespace CP.Tests
 {
-    class HelpCommand : CPCommand
+    class HelpCommand : Command
     {
         public override bool Init()
         {
@@ -29,7 +29,7 @@ namespace CP.Tests
 			{
 				StringBuilder message = new StringBuilder();
 
-				foreach (CPCommand command in Command.Commands.Values)
+				foreach (Command command in ParentSystem.Commands.Values)
 				{
 					message.Append(command.Name);
 					message.Append(" - ");
@@ -37,13 +37,13 @@ namespace CP.Tests
 					message.Append("\n");
 				}
 
-				Console.WriteLine(message);
+				Logger.WriteLine(message.ToString());
 			} else
 			{
 				string arg = args[1];
-				if(Command.Commands.ContainsKey(arg.ToLower()))
+				if(ParentSystem.Commands.ContainsKey(arg.ToLower()))
 				{
-					Console.WriteLine(Command.Commands[arg.ToLower()]);
+					Logger.WriteLine(ParentSystem.Commands[arg.ToLower()].ToString());
 				}
 			}
 

@@ -11,7 +11,7 @@ using System.Text;
 
 namespace CP.Tests
 {
-	class ExitCommand : CPCommand
+	class ExitCommand : Command
 	{
 		public override bool Init()
 		{

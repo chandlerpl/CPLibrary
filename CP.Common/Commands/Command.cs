@@ -4,96 +4,59 @@
  * Proprietary and confidential
  * Author: Chandler Pope-Lewis <c.popelewis@gmail.com>
  */
-using CP.Common.Utilities;
-using System;
+using CP.Common.Logger;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace CP.Common.Commands
 {
-    public class Command
+    public abstract class Command
     {
-        /*
-         * TODO: Work on a Command system that can be instantiated multiple times while still being able to dynamically load CPCommands but only commands that correlate to 
-         *       the correct Command System.
-         */
+        public string Name { get; protected set; }
+        public string ProperUse { get; protected set; }
+        public string Desc { get; protected set; }
+        public List<string> Aliases { get; protected set; }
 
-        public static Dictionary<string, CPCommand> Commands { get; private set; } = new Dictionary<string, CPCommand>();
+        public virtual CommandSystem ParentSystem { get; protected set; }
+        public string CommandSystemID { get; protected set; } = "";
+        protected ILogger Logger { get => ParentSystem.Logger; }
 
         public Command()
         {
-            RegisterCommand();
+            Init();
         }
 
-        public static void RegisterCommand()
+        public abstract bool Init();
+
+        public abstract bool Execute(object obj, List<string> args);
+
+        public bool SetParentSystem(CommandSystem system)
         {
-            Commands.Clear();
-            Dictionary<string, string> commandAliases = new Dictionary<string, string>();
-            List<CPCommand> commands = ClassLoader.Load<CPCommand>().ToList();
-            commands = commands.OrderBy(t => t.Name).ToList();
-            foreach (CPCommand cl in commands)
-            {
-                string name = cl.Name;
-                if (name == null)
-                {
-                    Console.WriteLine("Command " + cl.GetType().Name + " has no name!");
-                    continue;
-                }
+            if (ParentSystem != null)
+                return false;
 
-                if (Commands.ContainsKey(name.ToLower()))
-                {
-                    Console.WriteLine(name + " already exists, please remove or rename!");
-                    continue;
-                }
-
-                if (cl.Aliases == null || cl.Aliases.Count == 0)
-                {
-                    Console.WriteLine("Command " + name + " has no aliases! Using " + name.ToLower() + " as Alias");
-                    cl.Aliases.Add(name.ToLower());
-                }
-
-                foreach(string alias in cl.Aliases.ToArray())
-                {
-                    if(commandAliases.ContainsKey(alias))
-                    {
-                        if(name.Equals(commandAliases[alias]))
-                        {
-                            Console.WriteLine("Warning! The Command " + name + " has duplicate alias entries.");
-                            cl.Aliases.RemoveAll(t => t == alias);
-                            cl.Aliases.Add(alias);
-                        } else
-                        {
-                            Console.WriteLine("The alias " + alias + " for Command " + name + " is already in use by Command " + commandAliases[alias] + ", removing!");
-                            cl.Aliases.RemoveAll(t => t == alias);
-                        }
-                        continue;
-                    }
-
-                    commandAliases.Add(alias, name);
-                }
-
-                Commands.Add(name.ToLower(), cl);
-            }
+            ParentSystem = system;
+            return true;
         }
-        
-        public bool commandInterface(object obj, string[] args)
+
+        public bool CorrectLength(List<string> args, int min, int max)
         {
-            foreach (CPCommand command in Commands.Values)
-            {
-                if (command.Aliases.Contains(args[0].ToLower()))
-                {
-                    if (!command.Execute(obj, args.ToList()))
-                    {
-                        Console.WriteLine(command);
-                    }
+            return args.Count >= min && args.Count <= max;
+        }
 
-                    return true;
-                }
-            }
+        public override string ToString()
+        {
+            StringBuilder message = new StringBuilder();
+            message.Append("Help for: ");
+            message.Append(Name);
+            message.Append("\nProper Use: ");
+            message.Append(ProperUse);
+            message.Append("\nDescription: ");
+            message.Append(Desc);
+            message.Append("\nAlternatives: ");
+            message.Append(Aliases.ToArray().ToString());
 
-            Console.WriteLine("Invalid Command!\n");
-            return false;
+            return message.ToString();
         }
     }
 }
