@@ -70,6 +70,11 @@ namespace CP.Common.Maths
             return new Vector3F((Y * a.Z) - (Z * a.Y), (Z * a.X) - (X * a.Z), (X * a.Y) - (Y * a.X));
         }
 
+        public float Dot(Vector3F a)
+        {
+            return (X * a.X) + (Y * a.Y) + (Z * a.Z);
+        }
+
         public override string ToString()
         {
             return "[" + X + ", " + Y + ", " + Z + "]";

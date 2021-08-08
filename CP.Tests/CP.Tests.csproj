@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CP.AILibrary\CP.AILibrary.csproj" />
     <ProjectReference Include="..\CP.Common\CP.Common.csproj" />
   </ItemGroup>
 

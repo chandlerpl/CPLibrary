@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Reflection;
 using System.Text;
 
 namespace CP.Common.Maths
@@ -22,6 +24,10 @@ namespace CP.Common.Maths
         {
             normals = new Vector3F[vertices.Length];
 
+            for (int i = 0; i < normals.Length; i++)
+            {
+                normals[i] = new Vector3F(0, 0);
+            }
             for (int i = 0; i < triangles.Length; i += 3)
             {
                 Vector3F one = vertices[triangles[i]];
@@ -39,6 +45,24 @@ namespace CP.Common.Maths
             {
                 normals[i] = normals[i].Normalized;
             }
+        }
+
+        public bool IsInside(Vector3F point)
+        {
+            for (int i = 0; i < triangles.Length; i += 3)
+            {
+                Vector3F f = vertices[triangles[i]];
+                f = point - f;
+                float dist = f.Dot(Normals[triangles[i]]);
+                if (dist > 0) return false;
+            }
+
+            return true;
+        }
+
+        public bool IsInside(Vector3D point)
+        {
+            return IsInside(new Vector3F((float)point.X, (float)point.Y, (float)point.Z));
         }
     }
 }

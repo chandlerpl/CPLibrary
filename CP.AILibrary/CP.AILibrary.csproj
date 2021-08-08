@@ -5,9 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="FiniteStateMachine\" />
     <Folder Include="BehaviourTree\" />
-    <Folder Include="NewFolder\" />
   </ItemGroup>
 
 </Project>
