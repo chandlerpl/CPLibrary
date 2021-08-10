@@ -108,7 +108,9 @@ namespace CP.Common.Maths
         public static Vector3D operator /(Vector3D a, double b) { return new Vector3D(a.X / b, a.Y / b, a.Z / b); }
         public static Vector3D operator -(Vector3D a, Vector3D b) { return new Vector3D(a.X - b.X, a.Y - b.Y, a.Z - b.Z); }
         public static Vector3D operator -(Vector3D a, double b) {return new Vector3D(a.X - b, a.Y - b, a.Z - b); }
-        public static Vector3D operator -(Vector3D a) {return new Vector3D(a.X = -a.X, a.Y = -a.Y, a.Z = -a.Z);
-        }
+        public static Vector3D operator -(Vector3D a) { return new Vector3D(a.X = -a.X, a.Y = -a.Y, a.Z = -a.Z); }
+
+        public static bool operator !=(Vector3D a, Vector3D b) { if (a is null || b is null) return a is null && b is null; return !a.ApproxEquals(b); }
+        public static bool operator ==(Vector3D a, Vector3D b) { if (a is null || b is null) return a is null && b is null; return a.ApproxEquals(b); }
     }
 }
