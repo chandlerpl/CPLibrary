@@ -39,7 +39,7 @@ namespace CP.Tests
             for(int i = 0; i < 21; i++)
             {
                 //Console.WriteLine(i);
-                network.forward(new float[4] { 0.1f, 0.2f, 0.1f, 0.4f });
+                network.Forward(new float[4] { 0.1f, 0.2f, 0.1f, 0.4f });
 
                 network.Remember(false, 0, new float[4] { 0.1f, 0.2f, 0.1f, 0.4f }, new float[4] { 0.1f, 0.2f, 0.1f, 0.4f });
             }

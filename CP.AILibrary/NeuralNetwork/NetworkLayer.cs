@@ -128,7 +128,7 @@ namespace CP.AILibrary.NeuralNetwork
         {
             for (int i = 0; i < vals.Length; ++i)
             {
-                vals[i] = (vals[i] > 0 ? 1 : 0) * 1;
+                vals[i] = (vals[i] > 0 ? 1 : 0);
             }
 
             return vals;
